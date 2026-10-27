@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DMC Studio — Devil May Cry Saga Brasil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&family=Oswald:wght@600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg0:#050810;--bg1:#0a1120;--bg2:#0e1a30;--cy:#4cc9f0;--vi:#8b7cf6;--mg:#e81ee0;--t0:#f5f8fc;--t1:#a9b8cf;--t2:#6b7a92;--gl:rgba(255,255,255,.045);--bd:rgba(255,255,255,.1);--ok:#34d399;--er:#fb7185;color-scheme:dark}
 @media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg0:#050810}}
@@ -115,7 +115,13 @@ const TPL=[
  title:{x:620,y:215,w:440,h:200,s:84,a:'left',up:1,d:'Você\nSabia?'},sub:{x:575,y:440,w:490,h:100,s:40,a:'left',d:'DEVIL MAY CRY 4 —\n**TRIVIA #17**'},
  desc:{x:575,y:555,w:490,h:480,s:25,a:'left',lh:1.45,d:'**Credo** foi originalmente o chefe final deste jogo. Escreva aqui a sua notícia.'},
  lines:[[735,1075,1080,1075,'#25d9ff'],[890,1135,1080,1135,MG]],dots:[[440,1130,4,8,36,9],[500,40,4,10,36,8]],plus:[],soc:{x:672,y:1218,n:4,la:'center',lx:870}},
-{id:5,name:'Template de Notícias 5',lock:1}];
+{id:5,name:'Template de Notícias 5',w:1080,h:1350,bg:'#07040f',poly:[[0,0],[1080,0],[1080,1010],[0,1010]],fade:[780,1010,'#07040f'],frame:'#4b2a8a',orn:[540,1148],logo:[353,818,418],nog:1,
+ title:{x:40,y:915,w:1000,h:224,s:72,lh:1,a:'center',up:1,ff:'Oswald',wt:'700',col:'#d6d2e4',hi:'#8a52f0',d:'**Segunda temporada do anime**\nDevil May Cry apresenta o vilão\n**mais fraco da franquia.**'},
+ desc:{x:140,y:1182,w:800,h:165,s:23,lh:1.4,a:'center',up:1,wt:'500',col:'#cfcae0',hi:'#8a52f0',d:'**Arius**, líder da Ordem da Espada e arqui-inimigo de Dante, mostra que força bruta não é tudo: subestimado por todos, ele prova que até o mais fraco pode causar o maior caos. A nova temporada do anime estreia em **12 de maio**.'}},
+{id:10,name:'Template de Notícias 6',w:1080,h:1350,bg:'#0b0720',poly:[[0,0],[1080,0],[1080,1000],[0,1000]],fade:[790,1000,'#0b0720'],frame:'#3b2a8a',logo:[310,812,446],nog:1,lab:['Título (linhas 2 e 3)','Destaque (linha 1)','Descrição'],
+ sub:{x:30,y:915,w:1020,h:135,s:135,lh:1,a:'center',up:1,ff:'Oswald',wt:'700',col:'#7c4bf0',d:'Devil May Cry'},
+ title:{x:30,y:1035,w:1020,h:240,s:92,lh:1.3,a:'center',up:1,ff:'Oswald',wt:'700',col:'#f1eefb',d:'Já teria 3ª temporada\naprovada pela Netflix'},
+ desc:{x:90,y:1272,w:900,h:64,s:22,lh:1.4,a:'center',wt:'400',col:'#a79be0',d:'Segundo rumores, a Netflix iniciou a produção da terceira temporada antes mesmo da estreia da segunda.'}}];
 TPL.forEach(t=>t.cat='noticias');
 TPL.push({id:6,cat:'memes',name:'Template Meme 2',w:1080,h:1080,bg:'#0d1a3a',poly:[[0,0],[1080,0],[1080,1080],[0,1080]],logo:[905,1012,150],col:'#fff',nog:1,lab:['Texto superior','Subtítulo','Texto inferior'],
  title:{x:40,y:25,w:1000,h:240,s:100,a:'center',up:1,st:1,wt:'800',lh:1.05,d:'Texto superior'},desc:{x:40,y:790,w:1000,h:220,s:100,a:'center',up:1,st:1,wt:'800',lh:1.05,bot:1,d:'Texto inferior'}},
@@ -143,8 +149,8 @@ function wrap(c,txt,w,font,up){const L=[];txt=up?txt.toUpperCase():txt;c.font=fo
   for(const part of par.split('**')){for(const wd of part.split(/ +/).filter(Boolean)){const m=c.measureText(wd).width;
    if(line.length&&lw+sp+m>w){L.push(line);line=[];lw=0}lw+=(line.length?sp:0)+m;line.push({t:wd,c:b,w:m})}b=!b}
   L.push(line)}return L}
-function block(c,o,txt,wt,col,hi,up){if(!o)return 0;wt=o.wt||wt;col=o.col||col;hi=o.col||hi;let s=o.s,L,lh=o.lh||1.08,over=false;
- const f=z=>`${wt} ${z}px Poppins,sans-serif`;
+function block(c,o,txt,wt,col,hi,up){if(!o)return 0;wt=o.wt||wt;col=o.col||col;hi=o.hi||o.col||hi;let s=o.s,L,lh=o.lh||1.08,over=false;
+ const f=z=>`${wt} ${z}px ${o.ff||'Poppins'},sans-serif`;
  for(;;){L=wrap(c,txt,o.w,f(s),up);if(L.length*s*lh<=o.h||s<=o.s*.6){over=L.length*s*lh>o.h;break}s-=2}
  c.font=f(s);c.textBaseline='middle';const sp=c.measureText(' ').width;
  L.forEach((l,i)=>{const tw=l.reduce((a,x)=>a+x.w,0)+sp*Math.max(0,l.length-1);let x=o.a==='center'?o.x+(o.w-tw)/2:o.x;const y=(o.bot?o.y+o.h-L.length*s*lh:o.y)+(i+.5)*s*lh;
@@ -173,12 +179,15 @@ function render(c,t,S,sc){if(t.fields)return renderF(c,t,S,sc);c.setTransform(sc
  if(S.img){const bw=x1-x0,bh=y1-y0,im=S.img,k=Math.max(bw/im.width,bh/im.height)*S.zoom,w=im.width*k,h=im.height*k;c.drawImage(im,x0+(bw-w)/2+S.ox,y0+(bh-h)/2+S.oy,w,h)}
  else{const q=c.createLinearGradient(x0,y0,x1,y1);q.addColorStop(0,'#3b1670');q.addColorStop(1,'#a21fc0');c.fillStyle=q;c.fillRect(x0,y0,x1-x0,y1-y0);c.fillStyle='rgba(255,255,255,.75)';c.font='600 26px Poppins';c.textAlign='center';c.textBaseline='middle';c.fillText('Carregue a imagem da notícia',(x0+x1)/2,(y0+y1)/2);c.textAlign='left'}
  c.restore();
+ if(t.fade){const [a,b,k]=t.fade,q=c.createLinearGradient(0,a,0,b);q.addColorStop(0,k+'00');q.addColorStop(1,k);c.fillStyle=q;c.fillRect(0,a,t.w,b-a);c.fillStyle=k;c.fillRect(0,b,t.w,t.h-b)}
+ if(t.frame){c.strokeStyle=t.frame;c.lineWidth=6;c.strokeRect(10,10,t.w-20,t.h-20)}
  if(t.blob){c.fillStyle='#24215a';c.beginPath();c.arc(t.blob[0],t.blob[1],t.blob[2],0,7);c.fill()}
  (t.dots||[]).forEach(d=>dots(c,d));(t.plus||[]).forEach(p=>plus(c,...p));
  c.save();c.lineWidth=9;c.lineCap='round';(t.lines||[]).forEach(l=>{c.strokeStyle=l[4];c.shadowColor=l[4];c.shadowBlur=22;c.beginPath();c.moveTo(l[0],l[1]);c.lineTo(l[2],l[3]);c.stroke()});c.restore();
  if(LOGO.complete&&LOGO.naturalWidth){const [lx,ly,lw]=t.logo;c.drawImage(LOGO,lx,ly,lw,lw*LOGO.naturalHeight/LOGO.naturalWidth)}
+if(t.orn){const [x,y]=t.orn;c.save();c.strokeStyle=c.fillStyle='#6a3fd0';c.lineWidth=2;c.beginPath();c.moveTo(x-260,y);c.lineTo(x-30,y);c.moveTo(x+30,y);c.lineTo(x+260,y);c.stroke();c.beginPath();c.moveTo(x,y-9);c.lineTo(x+9,y);c.lineTo(x,y+9);c.lineTo(x-9,y);c.closePath();c.fill();c.restore()}
  const tc=t.col||'#5bbfe8',r={};c.save();c.shadowColor='rgba(30,144,255,.85)';c.shadowBlur=t.nog?0:26;r.t=block(c,t.title,S.title??t.title.d,'700',tc,tc,t.title.up);c.restore();
- r.s=t.sub?block(c,t.sub,S.sub??t.sub.d,'800','#fff',tc):0;r.d=block(c,t.desc,S.desc??t.desc.d,'600','#fff',tc,t.desc.up);if(t.soc)social(c,t.soc,tc);return r}
+ r.s=t.sub?block(c,t.sub,S.sub??t.sub.d,'800','#fff',tc,t.sub.up):0;r.d=block(c,t.desc,S.desc??t.desc.d,'600','#fff',tc,t.desc.up);if(t.soc)social(c,t.soc,tc);return r}
 const cv=$('cv'),cx=cv.getContext('2d');let raf=0;
 function draw(){cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const t=T(),d=Math.min(window.devicePixelRatio||1,2),sc=view*d;
  cv.width=Math.round(t.w*sc);cv.height=Math.round(t.h*sc);cv.style.width=t.w*view+'px';cv.style.height=t.h*view+'px';
@@ -254,6 +263,6 @@ function openCat(c){cat=c;if(T().cat!==c.id){st.tid=c.ts[0].id;st.ox=st.oy=0;sna
 $('bk').onclick=()=>{$('hb').hidden=!cat;home.hidden=false;home.scrollTop=0};$('hb').onclick=()=>{home.hidden=true;fit()};
 BANK.forEach(b=>{if(!b.img){b.img=new Image();b.img.src=b.src}b.img.decode().then(()=>{thumbs();draw()}).catch(()=>{})});
 // início
-const fonts=['400','600','700','800'].map(w=>document.fonts.load(`${w} 40px Poppins`));
+const fonts=['400','500','600','700','800'].map(w=>document.fonts.load(`${w} 40px Poppins`)).concat([document.fonts.load('700 40px Oswald')]);
 sync();snap();fit();Promise.all([...fonts,LOGO.decode().catch(()=>0)]).then(()=>{thumbs();fit()}).catch(()=>{thumbs();fit()});
 </script></body></html>
